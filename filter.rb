@@ -18,9 +18,9 @@ def filter(event)
         #bag = JSON.parse(event.get(@field_name))
         bag = data
         new_bag = {}
-        new_bag["newfld"]="tests"
+        #new_bag["newfld"]="tests"
         bag.each do |key, value|
-            if value.length > @size_limit
+            if (! value.nil? && value.length > @size_limit)
                 pos = @size_limit
                 new_bag[key] = value[0..@size_limit-1]
                 index = 1
@@ -30,8 +30,8 @@ def filter(event)
                         pos = pos + @size_limit
                         index = index + 1
                 end
-            else
-                new_bag[key] = value
+            #else
+            #    new_bag[key] = value
             end
         end
         event.set("message",new_bag.to_json)
